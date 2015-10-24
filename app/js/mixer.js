@@ -37,7 +37,7 @@ global.onYouTubeIframeAPIReady = function() {
                 midiButton,
                 (function(column, row) {
                     return function(event) {
-                        seek("deck1", column + (row * 4));
+                        m.decks[0].seek(column + (row * 4));
                     };
                 })(j, i)
             );
@@ -51,7 +51,7 @@ global.onYouTubeIframeAPIReady = function() {
                 midiButton,
                 (function(column, row) {
                     return function(event) {
-                        seek("deck2", column + (row * 4));
+                        m.decks[1].seek(column + (row * 4));
                     };
                 })(j - 4, i)
             );
