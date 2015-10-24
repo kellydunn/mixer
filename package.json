@@ -4,8 +4,10 @@
   "description": "a mixer",
   "main": "main.js",
   "dependencies": {
+    "browserify": "^11.2.0",
     "express": "^4.13.3",
     "midi": "^0.9.4",
+    "ohmrgb": "git://github.com/kellydunn/ohmrgb.git",
     "usb": "^1.0.6",
     "usb-driver": "^0.1.1"
   },
