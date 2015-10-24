@@ -12,23 +12,29 @@ callbacks[DECK2_PLAYBACK] = function() {
     togglePlayback("deck2");
 }
 
-for(var i = 0; i < 32; i++) {
-    callbacks[i] = (function(index) {
-        return function() {
-            seek("deck1", i);
-        };
-    })(i);
+for(var i = 0; i < 8; i++) {
+    for (var j = 0; j < 4; j++) {
+        callbacks[i + (8 * j)] = (function(column, row) {
+            return function() {
+                seek("deck1", column + (row * 4));
+            };
+        })(j, i);
+    }
 }
 
-for(var i = 32; i < 64; i++) {
-    callbacks[i] = (function(index) {
-        return function() {
-            seek("deck2", index)
-        };
-    })(i);
+for(var i = 0; i < 8; i++) {
+    for (var j = 4; j < 8; j++) {    
+        callbacks[i + (8 * j)] = (function(column, row) {
+            return function() {
+                seek("deck2", column + (row * 4));
+            };
+        })(j - 4, i);
+    }
 }
 
-window.navigator.requestMIDIAccess().then(midiAccept, midiReject);
+window.navigator.requestMIDIAccess({'sysex': true}).then(midiAccept, midiReject);
+
+var output;
 
 function midiAccept(midi) {
     console.log(midi);
@@ -40,6 +46,8 @@ function midiAccept(midi) {
         input.value.onmidimessage = MIDIMessageEventHandler;
         haveAtLeastOneDevice = true;
     }
+
+    output = midiAccess.outputs.values().next().value;
     
     if (!haveAtLeastOneDevice) {
         alert("No MIDI input devices present.  You're gonna have a bad time.");
