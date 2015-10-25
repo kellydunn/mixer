@@ -32,23 +32,34 @@ global.onYouTubeIframeAPIReady = function() {
 
     for(var i = 0; i < 8; i++) {
         for (var j = 0; j < 4; j++) {
-            var midiButton = ohmrgb.controls.controlID(i + (8 * j), ohmrgb.midi.NOTE);            
-            ohmrgb.controls.registerCallback(
+            var midiButton = ohmrgb.controls.gridID(i, j);
+            var controlCode = ohmrgb.controls.controlID(
                 midiButton,
-                (function(column, row) {
+                ohmrgb.midi.NOTE
+            );
+            
+            ohmrgb.controls.registerCallback(
+                controlCode,
+                (function(column, row, control) {
                     return function(event) {
                         m.decks[0].seek(column + (row * 4));
+                        ohmrgb.controls.lightingLookup[control] = ohmrgb.colors.WHITE;
                     };
-                })(j, i)
+                })(j, i, controlCode)
             );
         }
     }
     
     for(var i = 0; i < 8; i++) {
-        for (var j = 4; j < 8; j++) {    
-            var midiButton = ohmrgb.controls.controlID(i + (8 * j), ohmrgb.midi.NOTE);
-            ohmrgb.controls.registerCallback(
+        for (var j = 4; j < 8; j++) {
+            var midiButton = ohmrgb.controls.gridID(i, j);            
+            var controlCode = ohmrgb.controls.controlID(
                 midiButton,
+                ohmrgb.midi.NOTE
+            );
+                
+            ohmrgb.controls.registerCallback(
+                controlCode,
                 (function(column, row) {
                     return function(event) {
                         m.decks[1].seek(column + (row * 4));
@@ -67,7 +78,11 @@ global.onYouTubeIframeAPIReady = function() {
         }
     );
 
-    MIDI.handler.registerInputHandler(ohmrgb.controls.MIDIMessageEventHandler);
+    MIDI.handler.registerInputHandler(function(event) {
+        ohmrgb.controls.MIDIMessageEventHandler(event);
+        var msg = ohmrgb.controls.drawSysexMessage();
+        MIDI.handler.send(msg);
+    });
 }
 
 module.exports = m;
