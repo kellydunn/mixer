@@ -32,7 +32,7 @@ global.onYouTubeIframeAPIReady = function() {
 
     for(var i = 0; i < 8; i++) {
         for (var j = 0; j < 4; j++) {
-            var midiButton = ohmrgb.controls.gridID(i, j);
+            var midiButton = ohmrgb.controls.gridID((i * 8) + j);
             var controlCode = ohmrgb.controls.controlID(
                 midiButton,
                 ohmrgb.midi.NOTE
@@ -52,7 +52,7 @@ global.onYouTubeIframeAPIReady = function() {
     
     for(var i = 0; i < 8; i++) {
         for (var j = 4; j < 8; j++) {
-            var midiButton = ohmrgb.controls.gridID(i, j);            
+            var midiButton = ohmrgb.controls.gridID((i * 8) + j);            
             var controlCode = ohmrgb.controls.controlID(
                 midiButton,
                 ohmrgb.midi.NOTE
@@ -60,11 +60,12 @@ global.onYouTubeIframeAPIReady = function() {
                 
             ohmrgb.controls.registerCallback(
                 controlCode,
-                (function(column, row) {
+                (function(column, row, control) {
                     return function(event) {
                         m.decks[1].seek(column + (row * 4));
+                        ohmrgb.controls.lightingLookup[control] = ohmrgb.colors.WHITE;
                     };
-                })(j - 4, i)
+                })(j - 4, i, controlCode)
             );
         }
     }
@@ -80,8 +81,10 @@ global.onYouTubeIframeAPIReady = function() {
 
     MIDI.handler.registerInputHandler(function(event) {
         ohmrgb.controls.MIDIMessageEventHandler(event);
-        var msg = ohmrgb.controls.drawSysexMessage();
-        MIDI.handler.send(msg);
+        if(event.data[0] == ohmrgb.midi.CC || (event.data[0] == ohmrgb.midi.NOTE & event.data[2] == ohmrgb.midi.BUTTON_DOWN)) {        
+            var msg = ohmrgb.controls.drawSysexMessage();
+            MIDI.handler.sendMIDI(msg);
+        }
     });
 }
 

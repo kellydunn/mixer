@@ -60,8 +60,6 @@ var TEST_SYSEX_MESSAGE = [
     0x0F7
 ]
 
-var output;
-
 module.exports.midiAccept = function(midi) {
     console.log(midi);
 
@@ -98,7 +96,7 @@ MIDI.prototype.registerInputHandler = function(handler) {
 //sendMIDI(TEST_SYSEX_MESSAGE);
 
 MIDI.prototype.sendMIDI = function (message) {
-    output.send(message);
+    this.output.send(message);
 }
 
 window.navigator.requestMIDIAccess({'sysex': true}).then(module.exports.midiAccept, module.exports.midiReject);

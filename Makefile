@@ -1,2 +1,2 @@
 all:
-	browserify app/js/yt.js app/js/midi.js app/js/deck.js app/js/mixer.js -o app/js/build/mixer.bundle.js
+	browserify app/js/*.js -t [ envify --YOTUBE_KEY $(YOUTUBE_KEY)] > app/js/build/mixer.bundle.js

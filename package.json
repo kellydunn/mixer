@@ -4,12 +4,14 @@
   "description": "a mixer",
   "main": "main.js",
   "dependencies": {
+    "../ohmrgb": "0.0.0",
     "browserify": "^11.2.0",
+    "envify": "^3.4.0",
     "express": "^4.13.3",
     "midi": "^0.9.4",
-    "ohmrgb": "git://github.com/kellydunn/ohmrgb.git",
     "usb": "^1.0.6",
-    "usb-driver": "^0.1.1"
+    "usb-driver": "^0.1.1",
+    "youtube-search": "^1.0.4"
   },
   "devDependencies": {
     "usb-driver": "^0.1.1"
