@@ -3,8 +3,22 @@
   <head>
   </head>
   <body>
-    <div id="deck1"></div>
-    <div id="deck2"></div>
+    <div id="deck1_wrapper">
+      <div id="deck1"></div>
+      <form id="deck1_search">
+        <input id="deck1_search_input" type="text"/>
+        <input type="submit" text="Search"/>
+      </form>
+      <div id="deck1_search_results"></div>
+    </div>
+    <div id="deck2_wrapper">
+      <div id="deck2"></div>
+      <form id="deck2_search">
+        <input id="deck2_search_input" type="text"/>
+        <input type="submit" text="Search"/>
+      </form>        
+      <div id="deck1_search_results"></div>      
+    </div>
   </body>
   <script type="text/javascript" src="js/build/mixer.bundle.js"></script>      
 </html>

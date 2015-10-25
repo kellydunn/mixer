@@ -86,6 +86,15 @@ global.onYouTubeIframeAPIReady = function() {
             MIDI.handler.sendMIDI(msg);
         }
     });
+
+    document.getElementById("deck1_search").onsubmit = function() {
+        var val = document.getElementById("deck1_search_input").value;
+        yt.search(val, function(res){
+            document.getElementById("deck1_search_results").textContent = res;
+        });
+
+        return false;
+    }
 }
 
 module.exports = m;
