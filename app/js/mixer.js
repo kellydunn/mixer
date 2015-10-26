@@ -1,7 +1,8 @@
-var Deck = require("./deck.js");
-var MIDI = require("./midi.js");
-var yt = require("./yt.js");
-var ohmrgb = require("ohmrgb");
+var Deck          = require("./deck.js");
+var MIDI          = require("./midi.js");
+var yt            = require("./yt.js");
+var ohmrgb        = require("ohmrgb");
+var search_result = require("./templates/search_result.hbs");
 
 var Mixer = function() {
     this.decks = [];
@@ -89,8 +90,15 @@ global.onYouTubeIframeAPIReady = function() {
 
     document.getElementById("deck1_search").onsubmit = function() {
         var val = document.getElementById("deck1_search_input").value;
+
         yt.search(val, function(res){
-            document.getElementById("deck1_search_results").textContent = res;
+            var rendered;
+            
+            for(var i = 0; i < res.length; i++) {
+                rendered += search_result(res[i]);
+            }
+            
+            document.getElementById("deck1_search_results").innerHTML = rendered;
         });
 
         return false;

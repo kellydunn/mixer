@@ -12,7 +12,7 @@ var Youtube = function() {
 }
 
 Youtube.prototype.search = function(q, f) {
-    yts('q', {key: this.key, maxResults: this.maxResults}, function(err, results) {
+    yts(q, {key: this.key, maxResults: this.maxResults}, function(err, results) {
         if(err) return console.log(err);
         console.dir(results);
         f(results);
