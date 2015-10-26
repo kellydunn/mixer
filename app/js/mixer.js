@@ -103,6 +103,22 @@ global.onYouTubeIframeAPIReady = function() {
 
         return false;
     }
+
+    document.getElementById("deck2_search").onsubmit = function() {
+        var val = document.getElementById("deck2_search_input").value;
+
+        yt.search(val, function(res){
+            var rendered;
+            
+            for(var i = 0; i < res.length; i++) {
+                rendered += search_result(res[i]);
+            }
+            
+            document.getElementById("deck2_search_results").innerHTML = rendered;
+        });
+
+        return false;
+    }    
 }
 
 module.exports = m;
