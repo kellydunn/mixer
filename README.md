@@ -20,13 +20,16 @@ Had to come up with something relatively quick for a set, thought I'd just slap 
    - Crossfading between two decks.
    - Play / Pause per deck.
    - 32 points of Ad-hoc Sample Chopping per deck.
+   - Search for more Youtube Videos.
 
 ## Roadmap
-  - [ ] Search for more Youtube Videos
   - [ ] Add Videos to decks.
+    - Click a search video to add to the corresponding deck.
   - [ ] Cue mode.
   - Tactile feedback.
-    - [ ] OhmRGB should light up when play / pause / sample chopping
+    - [x] OhmRGB should light up when play / pause / sample chopping
+    - [ ] OhmRGB should light up along with playback
+    - [ ] OhmRGB should light up with loop select
   - Loops
     - [ ] Be able to identify a range of samples and have them loop
   - Bandpass Filter
